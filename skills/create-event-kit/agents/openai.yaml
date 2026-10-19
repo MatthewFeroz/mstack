@@ -1,4 +1,0 @@
-interface:
-  display_name: "Create Event Kit"
-  short_description: "Build event copy, proposal, and Luma mockup"
-  default_prompt: "Use $create-event-kit to create an event brief, official logo folder, social copy, a one-page proposal, and an unpublished Luma mockup."
