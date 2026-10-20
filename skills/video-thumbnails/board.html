@@ -1,0 +1,69 @@
+<!--
+  Thumbnail board template. Copy to canva-previews/<slug>/board.html and edit only the BOARD object.
+  - title: the video's working title. round: 1, 2, 3... canvaUrl: the video's Canva edit_url.
+  - variants: one entry per page, in page order. id is the letter the user replies with.
+    src is an absolute local path to a downloaded PNG/JPG (html_render and html_preview inline it;
+    remote Canva URLs expire within hours, so never point src at them). page is the Canva page number.
+    note is one sentence on the single thing this variant changes.
+  The page uses T3's theme variables and has no outer background, padding, or title banner.
+-->
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{font-family:var(--font-sans,system-ui);color:var(--foreground,#e7e9ea)}
+.wrap{display:flex;flex-direction:column;gap:14px}
+.hero img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-radius:var(--radius,10px);border:1px solid var(--border,#333)}
+.bar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:10px}
+.meta{font-size:13px;line-height:1.45;color:var(--muted-foreground,#999);max-width:520px}
+.meta b{color:var(--foreground,#e7e9ea)}
+.btn{display:inline-flex;padding:7px 14px;border-radius:999px;background:var(--primary,#1d9bf0);color:var(--primary-foreground,#fff);font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.card{position:relative;padding:0;border:2px solid transparent;border-radius:calc(var(--radius,10px) + 2px);background:none;cursor:pointer;overflow:hidden;text-align:left;color:inherit;font:inherit}
+.card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-radius:var(--radius,10px);pointer-events:none}
+.card .id{position:absolute;left:6px;top:6px;font:700 12px var(--font-mono,monospace);background:rgba(0,0,0,.75);color:#fff;padding:2px 7px;border-radius:6px}
+.card:hover{border-color:var(--border,#333)}
+.card.sel{border-color:var(--accent,#1d9bf0)}
+</style></head><body><div class="wrap">
+<div class="hero"><img id="big" alt="">
+<div class="bar"><div class="meta" id="meta"></div><a class="btn" id="open">Open in Canva ↗</a></div></div>
+<div class="grid" id="grid"></div></div>
+<script>
+const BOARD = {
+  title: "Video title",
+  round: 1,
+  canvaUrl: "https://www.canva.com/d/...",
+  variants: [
+    { id: "A", page: 1, src: "/abs/path/canva-previews/slug/r1-A.png", note: "Baseline: the starting layout." },
+  ],
+};
+const grid = document.getElementById("grid");
+document.getElementById("open").href = BOARD.canvaUrl;
+function pick(i) {
+  const v = BOARD.variants[i];
+  document.getElementById("big").src = v.src;
+  document.getElementById("big").alt = "Variant " + v.id;
+  document.getElementById("meta").innerHTML = "";
+  const m = document.getElementById("meta");
+  const head = document.createElement("div");
+  head.innerHTML = "<b></b> · round " + BOARD.round + " · variant <b></b> (page " + v.page + ")";
+  head.querySelectorAll("b")[0].textContent = BOARD.title;
+  head.querySelectorAll("b")[1].textContent = v.id;
+  const note = document.createElement("div");
+  note.textContent = v.note + " Reply with the letter, plus anything to change.";
+  m.append(head, note);
+  [...grid.children].forEach((c, j) => c.classList.toggle("sel", j === i));
+}
+BOARD.variants.forEach((v, i) => {
+  const b = document.createElement("button");
+  b.className = "card";
+  b.title = v.note;
+  const img = document.createElement("img");
+  img.src = v.src;
+  img.alt = "Variant " + v.id;
+  const id = document.createElement("span");
+  id.className = "id";
+  id.textContent = v.id;
+  b.append(img, id);
+  b.onclick = () => pick(i);
+  grid.appendChild(b);
+});
+pick(0);
+</script></body></html>

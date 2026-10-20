@@ -1,0 +1,3 @@
+interface:
+  display_name: "Video Thumbnails"
+  short_description: "Explore thumbnail variants for one video in Canva, picked from an inline board"
