@@ -1,0 +1,59 @@
+{
+  "testedCommit": "b5a226e49c52ecab4ddc2d678a7012d97e651a6a",
+  "installedNightly": "0.1.2-nightly.20261021.3499",
+  "inducedCondition": "3 second delay before the real bounded thread snapshot response; task-owned dev state and browser cache only",
+  "input": "Native PageUp after focusing the existing timeline; automation set tabIndex=0. No scrollTop assignment.",
+  "baseline": {
+    "attached": null,
+    "exhausted": {
+      "t": 1855.3000000044703,
+      "thread": "synthetic-thread"
+    },
+    "h": 748,
+    "listAvailable": 4660,
+    "sh": 22197,
+    "top": 21449,
+    "up": {
+      "h": 748,
+      "pill": false,
+      "sh": 22197,
+      "top": 20795
+    },
+    "afterResize": {
+      "h": 728,
+      "pill": false,
+      "sh": 22197,
+      "top": 21469
+    }
+  },
+  "control": {
+    "attached": {
+      "remainingAttempts": 412,
+      "t": 4801.69999999553,
+      "thread": "synthetic-thread"
+    },
+    "exhausted": null,
+    "h": 748,
+    "listAvailable": 4635.10000000149,
+    "sh": 22197,
+    "top": 21449,
+    "up": {
+      "h": 748,
+      "pill": true,
+      "sh": 22197,
+      "top": 20795
+    },
+    "afterResize": {
+      "h": 728,
+      "pill": true,
+      "sh": 22197,
+      "top": 20795
+    }
+  },
+  "controlChange": "Diagnostic only: attach(12) changed to attach(600); same 3 second delay retained. All changes removed after measurement.",
+  "limitations": [
+    "Mouse wheel was not delivered by preview_scroll, which uses scrollBy.",
+    "The measured snap is on an idle transcript after viewport resizing; active tool-boundary snaps were not reproduced.",
+    "This verifies one missing-listener failure path, not the cause of every user report."
+  ]
+}
