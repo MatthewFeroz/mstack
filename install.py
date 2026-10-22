@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Restore the shared rulebook and three core skills to a Mac user directory."""
+"""Restore the shared rulebook and four core skills to a Mac user directory."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ import tempfile
 
 
 REPO = Path(__file__).resolve().parent
-SKILLS = ("unslop", "mock", "writing-for-agents")
+SKILLS = ("unslop", "mock", "writing-for-agents", "reproduce-bug")
 REQUIRED_FILES = (
     "global/AGENTS.md",
     "global/CLAUDE.md",
@@ -23,6 +23,9 @@ REQUIRED_FILES = (
     "skills/writing-for-agents/SKILL.md",
     "skills/writing-for-agents/SKILL-MECHANICS.md",
     "skills/writing-for-agents/THIRD_PARTY_LICENSE_mattpocock.txt",
+    "skills/reproduce-bug/SKILL.md",
+    "skills/reproduce-bug/references/t3code.md",
+    "skills/reproduce-bug/THIRD_PARTY_LICENSE_t3code.txt",
 )
 MANAGED_DIRS = (
     ".agents",

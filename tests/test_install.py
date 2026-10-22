@@ -36,7 +36,7 @@ class InstallTests(unittest.TestCase):
         self.assertEqual((self.home / ".claude/CLAUDE.md").read_bytes(), (REPO / "global/CLAUDE.md").read_bytes())
         self.assertTrue((self.home / ".codex/AGENTS.md").is_symlink())
         self.assertEqual((self.home / ".codex/AGENTS.md").resolve(), self.home / ".agents/AGENTS.md")
-        for name in ("unslop", "mock", "writing-for-agents"):
+        for name in ("unslop", "mock", "writing-for-agents", "reproduce-bug"):
             source = REPO / "skills" / name
             target = self.home / ".agents/skills" / name
             self.assertEqual({p.relative_to(source) for p in source.rglob("*")}, {p.relative_to(target) for p in target.rglob("*")})
@@ -117,7 +117,7 @@ class InstallTests(unittest.TestCase):
         incomplete.mkdir()
         shutil.copy2(REPO / "install.py", incomplete / "install.py")
         shutil.copytree(REPO / "global", incomplete / "global")
-        for name in ("unslop", "mock", "writing-for-agents"):
+        for name in ("unslop", "mock", "writing-for-agents", "reproduce-bug"):
             shutil.copytree(REPO / "skills" / name, incomplete / "skills" / name)
         (incomplete / "skills/mock/harness.html").unlink()
         result = self.install(repo=incomplete)

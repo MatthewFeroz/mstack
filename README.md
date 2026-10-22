@@ -1,6 +1,6 @@
 # Matthew's agent setup
 
-This repo backs up my shared rules and the three core skills I use with Claude Code and Codex on macOS. The copies under `global/` and the three skill folders below match the files installed on my Mac.
+This repo backs up my shared rules and four core skills for Claude Code and Codex on macOS. The installer restores the copies under `global/` and the four skill folders below.
 
 ## What's included
 
@@ -11,6 +11,7 @@ This repo backs up my shared rules and the three core skills I use with Claude C
 | [`skills/unslop`](skills/unslop/SKILL.md) | Removes AI writing patterns. Includes the local rule that protects code, paths, URLs, and timestamps. |
 | [`skills/mock`](skills/mock/SKILL.md) | Builds UI comparisons from the included HTML template. |
 | [`skills/writing-for-agents`](skills/writing-for-agents/SKILL.md) | Guides agent instructions, with supporting references and the third-party license. |
+| [`skills/reproduce-bug`](skills/reproduce-bug/SKILL.md) | Recreates bugs in the running product, isolates the trigger, and prepares evidence for properly formatted issues. Includes a T3 Code adapter. |
 
 The installer restores this core setup. The other skills already in this repo remain available as separate workflows.
 
@@ -21,8 +22,8 @@ Install Git, Python 3.9 or later, Claude Code, and Codex. Set up their sign-ins 
 Clone this repo into a permanent folder:
 
 ```sh
-git clone https://github.com/MatthewFeroz/md.git ~/md
-cd ~/md
+git clone https://github.com/MatthewFeroz/mstack.git ~/mstack
+cd ~/mstack
 python3 install.py --dry-run
 python3 install.py
 ```
@@ -34,6 +35,7 @@ The installer copies the rulebook and skill packages into your user directories.
 ~/.agents/skills/unslop/
 ~/.agents/skills/mock/
 ~/.agents/skills/writing-for-agents/
+~/.agents/skills/reproduce-bug/
 ~/.codex/AGENTS.md -> ../.agents/AGENTS.md
 ~/.codex/skills/<skill> -> ../../.agents/skills/<skill>
 ~/.claude/CLAUDE.md
@@ -46,7 +48,7 @@ To undo a replacement, move the installed copy aside, then move the correspondin
 
 The installer uses the standard Codex directory at `~/.codex`. A custom `CODEX_HOME` needs corresponding paths set up separately. It stops before writing if a managed parent directory, such as `~/.claude/skills`, is a symlink or a file.
 
-Start a fresh Claude Code or Codex session after installation. Ask it to summarize the shared rules and list `unslop`, `mock`, and `writing-for-agents`. In Claude, ask it which jobs go to Astra. Then use a small real task to check the workflow, such as asking for two UI variants with `mock`.
+Start a fresh Claude Code or Codex session after installation. Ask it to summarize the shared rules and list `unslop`, `mock`, `writing-for-agents`, and `reproduce-bug`. In Claude, ask it which jobs go to Astra. Then use a small real task to check the workflow, such as asking for two UI variants with `mock` or investigating a reported bug with `reproduce-bug`.
 
 OpenAI's [AGENTS.md documentation](https://learn.chatgpt.com/docs/agent-configuration/agents-md#create-global-guidance) describes the global rulebook location. Its [skills documentation](https://learn.chatgpt.com/docs/customization/overview#skills) describes global skills and discovery.
 
@@ -67,3 +69,5 @@ The tests run the real installer in temporary user directories, checking fresh i
 ## Credits
 
 The rulebook and core skills were adapted from [SunkenInTime/software-factory](https://github.com/SunkenInTime/software-factory). `writing-for-agents` comes from [mattpocock/skills](https://github.com/mattpocock/skills); its MIT license is included in that skill folder.
+
+`reproduce-bug` adapts [T3 Code's test-t3-app workflow](https://github.com/pingdotgg/t3code/blob/b5a226e49c52ecab4ddc2d678a7012d97e651a6a/.agents/skills/test-t3-app/SKILL.md) and SQLite fixture guidance. Its T3 Code MIT notice is included in the skill folder.
