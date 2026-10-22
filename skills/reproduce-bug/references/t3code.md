@@ -20,6 +20,8 @@ Respect control ownership. Read a user-controlled tab through snapshots; operate
 
 When a report does not establish pointer location, compare ordinary text, nested tool output, and inline HTML as relevant. For follow/scroll behavior, distinguish initial positioning, active streaming, layout changes, and an idle settled thread. Record only the combinations that answer the reported failure.
 
+Check input semantics before interpreting results. In the pinned source, `preview_scroll` calls `scrollBy`; it does not deliver a wheel gesture, and scrolling an iframe element does not scroll its document. Use native keyboard input for a keyboard experiment and record any focus setup. A programmatic-scroll result cannot establish that wheel handling works.
+
 ## SQLite fixtures
 
 Read the checkout's `.agents/skills/test-t3-app/references/sqlite-fixtures.md` before direct state inspection or fixture writes.
@@ -29,6 +31,8 @@ Start the isolated server once to apply migrations, then stop that server before
 The active database is `userdata/statev2.sqlite`. Editing `state.sqlite` after V2 exists has no effect. Clients read `projection_projects` and `orchestration_v2_projection_*` tables. Match related project, thread, run, message, and turn-item IDs; preserve schema-valid `payload_json`.
 
 Direct projection fixtures can demonstrate client layout and interaction states, but do not establish backend business behavior or a coherent event history. Use app commands/APIs for that. Do not edit auth tables; use documented pairing/auth commands.
+
+T3 also persists thread snapshots in the browser. Direct projection writes leave event sequences unchanged, so a cached snapshot may hide a fixture update. Verify the fresh server response and rendered content; invalidate only the task's isolated browser cache when necessary. Attachment fixtures also need valid IDs and filenames from the current attachment-store contract, beyond a schema-valid tool result.
 
 ## Checks and reports
 
